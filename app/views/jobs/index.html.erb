@@ -2,4 +2,5 @@
   Job size is: <%= @jobs.size %>
 </div>
 
-<%= render partial: 'all_by_usage', locals: { jobs: Job.all_by_usage } %>
+                                                       <%# FIXME: not that clean here %>
+<%= render partial: 'all_by_usage', locals: { jobs: Job.usage_w_percentage(Job.all_by_usage) } %>

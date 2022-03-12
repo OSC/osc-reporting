@@ -1,14 +1,22 @@
 
 
 <table>
-  <%- jobs.each do |name, count| -%>
-  <tr> 
-    <td><%= name %></td>
-    <td><%= count %></td>
-  </tr>
+  <%- jobs.each do |job| -%>
+
+    <%- pct = job[:pct] -%>
+    <tr> 
+      <td><%= job[:name] %></td>
+      <td class="w-80">
+        <div class="progress text-center">
+          <div class="progress-bar" 
+              style="width: <%= pct %>%"
+              aria-valuenow="<%= pct %>"
+              aria-valuemin="0" aria-valuemax="100" >
+          </div>
+          <%= job[:count] %>
+        </div>
+      </td>
+    </tr>
   <%- end -%>
 </table>
 
-<div class="progress">
-  <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-</div>

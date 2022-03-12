@@ -6,7 +6,7 @@ namespace :db do
   desc 'Ingest data from sacct'
   task ingest: :environment do
     fmt = Job.sacct_fields.join(',')
-    since = "#{(DateTime.now - 30).strftime('%Y-%m-%d')}T00:00:00"
+    since = "#{(DateTime.now - 5).strftime('%Y-%m-%d')}T00:00:00"
     args = ['-o', fmt, '-a', '-P', '-n', '-L', '-s', 'CD,F,TO,DL,NF']
     args.concat ['--starttime', since, '--endtime', 'now']
     o, e, s = Open3.capture3('sacct', *args)
@@ -18,11 +18,12 @@ namespace :db do
 
     puts "sacct command completed with length #{o.length}"
 
-    o.split($/).map do |line|
+    jobs = o.split($/).map do |line|
       h = Job.sacct_to_hash(line)
-      j = Job.create(h)
-      j.valid? && j.new_record? ? j : nil
-    end.compact.each(&:save)
+      Job.new(h).valid? ? h : nil
+    end.compact
+
+    Job.upsert_all(jobs)
   end
 
   task one: :environment do

@@ -36,6 +36,22 @@ class Job < ApplicationRecord
         -v
       end
     end
+
+    def usage_w_percentage(jobs)
+      total = jobs.first[1].to_f
+      Rails.logger.info("total is  #{total}")
+
+      jobs.map do |name, count|
+        # Rails.logger.info("formatting #{count} for #{name}")
+        num = pct_format(count / total)
+        { name: name, count: count, pct: num }
+      end
+    end
+
+    def pct_format(number)
+      # Rails.logger.info("formatting #{number} to #{(number * 100).to_i}")
+      (number * 100).to_i
+    end
   end
 
   def simple_name
