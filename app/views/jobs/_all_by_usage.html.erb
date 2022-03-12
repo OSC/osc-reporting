@@ -1,0 +1,14 @@
+
+
+<table>
+  <%- jobs.each do |name, count| -%>
+  <tr> 
+    <td><%= name %></td>
+    <td><%= count %></td>
+  </tr>
+  <%- end -%>
+</table>
+
+<div class="progress">
+  <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+</div>

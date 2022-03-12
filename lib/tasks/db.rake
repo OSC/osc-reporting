@@ -16,20 +16,13 @@ namespace :db do
       raise StandardError, "sacct exited with #{s.exitstatus}"
     end
 
-    puts 'sacct command completed.'
+    puts "sacct command completed with length #{o.length}"
 
-    o.split($/).select do |line|
-      line.match(/ondemand/)
-    end.compact.map do |line|
-      Job.to_h_from_sacct(line)
-    end.reject do |h|
-      h[:id].match(/extern|batch/)
-    end.each do |h|
-      Job.create(h)
-    rescue
-      # first_or_create doesn't seem to work. not clear how to upsert
-      # quickly and painlessly
-    end
+    o.split($/).map do |line|
+      h = Job.sacct_to_hash(line)
+      j = Job.create(h)
+      j.valid? && j.new_record? ? j : nil
+    end.compact.each(&:save)
   end
 
   task one: :environment do

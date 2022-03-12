@@ -1,3 +1,5 @@
 <div>
   Job size is: <%= @jobs.size %>
 </div>
+
+<%= render partial: 'all_by_usage', locals: { jobs: Job.all_by_usage } %>
