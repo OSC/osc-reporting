@@ -3,9 +3,15 @@
 </div>
 
 <div class='row'>
-  <div class='col-md-6'>                                          <%# FIXME: not that clean here %>
-    <%= render partial: 'all_by_usage', locals: { jobs: Job.usage_w_percentage(Job.all_by_usage) } %>
+  <div class='col-md-6'>
+    <%= render partial: 'all_by_usage', locals: { jobs: @pct_jobs } %>
   </div>
-  
-  
+</div>
+
+<div class='row'>
+  <%- @active_jobs.each do |data| -%>
+  <div class='col-md-6'>
+    <%= render partial: 'system_status', locals: { cluster: data['cluster'], jobs: data['jobs'] } %>
+  </div>
+  <%- end -%>
 </div>
