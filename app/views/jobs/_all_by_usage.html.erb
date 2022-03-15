@@ -6,6 +6,7 @@
     <%- pct = job[:pct] -%>
     <tr> 
       <td><%= job[:name] %></td>
+      <td class="appJobsCount"><%= job[:count] %></td>
       <td class="w-80">
         <div class="progress text-center">
           <div class="progress-bar" 
@@ -13,7 +14,6 @@
               aria-valuenow="<%= pct %>"
               aria-valuemin="0" aria-valuemax="100" >
           </div>
-          <%= job[:count] %>
         </div>
       </td>
     </tr>
