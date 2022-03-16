@@ -1,22 +1,3 @@
-
-
 <table>
-  <%- jobs.each do |job| -%>
-
-    <%- pct = job[:pct] -%>
-    <tr> 
-      <td><%= job[:name] %></td>
-      <td class="app-job-count"><%= job[:count] %></td>
-      <td class="w-80">
-        <div class="progress text-center">
-          <div class="progress-bar" 
-              style="width: <%= pct %>%"
-              aria-valuenow="<%= pct %>"
-              aria-valuemin="0" aria-valuemax="100" >
-          </div>
-        </div>
-      </td>
-    </tr>
-  <%- end -%>
+  <%= render partial: 'count_by_app_row', collection: jobs, as: :job %>
 </table>
-
