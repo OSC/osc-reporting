@@ -1,17 +1,21 @@
-<div>
-  Job size is: <%= @jobs.size %>
-</div>
+<div class="container">
 
-<div class='row'>
-  <div class='col-md-6'>
-    <%= render partial: 'count_by_app', locals: { jobs: @pct_jobs } %>
+  <div class='row my-2'>
+    <%- @active_jobs.each do |data| -%>
+    <div class='col-md-6 col-xs-12 p-2'>
+      <%= render partial: 'system_status', locals: { cluster: data['cluster'], jobs: data['jobs'] } %>
+    </div>
+    <%- end -%>
   </div>
-</div>
 
-<div class='row'>
-  <%- @active_jobs.each do |data| -%>
-  <div class='col-md-6'>
-    <%= render partial: 'system_status', locals: { cluster: data['cluster'], jobs: data['jobs'] } %>
+  <div class='text-center'>
+    Total job count: <%= @jobs.size %>
   </div>
-  <%- end -%>
+
+  <div class='row pb-3 justify-content-center'>
+    <div class='col-md-8'>
+      <h5 class="pt-1">Jobs per app:</h5>
+      <%= render partial: 'count_by_app', locals: { jobs: @pct_jobs } %>
+    </div>
+  </div>
 </div>
