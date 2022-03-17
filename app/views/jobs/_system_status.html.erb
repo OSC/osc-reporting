@@ -1,3 +1,4 @@
-
-cluster is: <%= cluster %>
-job size is: <%= jobs.nil? ? 'nil' : jobs.size %>
+<div class='container border py-1 rounded-1'>
+    <strong>Cluster Name:</strong> <%= cluster %><br>
+    <strong>Job count:</strong> <%= jobs.nil? ? 'nil' : jobs.size %>
+</div>
