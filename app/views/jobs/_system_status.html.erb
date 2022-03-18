@@ -1,3 +1,20 @@
-
-cluster is: <%= cluster %>
-job size is: <%= jobs.nil? ? 'nil' : jobs.size %>
+<div class='container border py-1 rounded-1'>
+    <h2><%= cluster.capitalize() %> Cluster</h2>
+    <table class='table'>
+        <tr>
+            <th></th>
+            <th>Running</th>
+            <th>Queued</th>
+        </tr>
+        <tr>
+            <th>CPU</th>
+            <td><%= jobs.count { |job| job.status == 'running' } %></td>
+            <td><%= jobs.count { |job| job.status == 'queued' } %></td>
+        </tr>
+        <tr>
+            <th>GPU</th>
+            <td><%= jobs.count { |job| job.status == 'running' && job.native[:gres].include?("gpu") } %></td>
+            <td><%= jobs.count { |job| job.status == 'queued' && job.native[:gres].include?("gpu") } %></td>
+        </tr>
+    </table>
+</div>

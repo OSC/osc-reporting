@@ -1,3 +1,9 @@
 <table>
   <%= render partial: 'count_by_app_row', collection: jobs, as: :job %>
+  <tr> 
+    <td>Total</td>
+    <td class="app-job-count"><%= total_job_count %></td>
+    <td class="w-75">
+    </td>
+  </tr>
 </table>
