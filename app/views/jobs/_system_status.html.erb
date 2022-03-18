@@ -1,4 +1,20 @@
 <div class='container border py-1 rounded-1'>
     <strong>Cluster Name:</strong> <%= cluster %><br>
-    <strong>Job count:</strong> <%= jobs.nil? ? 'nil' : jobs.size %>
+    <table class='table'>
+        <tr>
+            <th></th>
+            <th>Running</th>
+            <th>Queued</th>
+        </tr>
+        <tr>
+            <th>CPU</th>
+            <td><%= jobs.count { |job| job.status == 'running' } %></td>
+            <td><%= jobs.count { |job| job.status == 'queued' } %></td>
+        </tr>
+        <tr>
+            <th>GPU</th>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+    </table>
 </div>
