@@ -13,8 +13,8 @@
         </tr>
         <tr>
             <th>GPU</th>
-            <td>0</td>
-            <td>0</td>
+            <td><%= jobs.count { |job| job.status == 'running' && job.native[:gres].include?("gpu") } %></td>
+            <td><%= jobs.count { |job| job.status == 'queued' && job.native[:gres].include?("gpu") } %></td>
         </tr>
     </table>
 </div>
