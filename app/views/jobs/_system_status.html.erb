@@ -1,5 +1,17 @@
 <div class='container border py-1 rounded-1'>
     <h2><%= cluster.capitalize() %> Cluster</h2>
+    <div class='py-1'>
+        <%- cpuActive = 20004 -%>
+        <%- cpuTotal = 29504 -%>
+        <div class="usage-label text-center"><%= cpuActive %> of <%= cpuTotal %> Processors Active (<%= cpuTotal - cpuActive %> Processors Free)</div>
+        <div class="progress text-center">
+            <div class="progress-bar" 
+                style="width: <%= cpuActive.to_f / cpuTotal * 100 %>%"
+                aria-valuenow="<%= cpuActive %>"
+                aria-valuemin="0" aria-valuemax="<%= cpuTotal %>" >
+            </div>
+        </div>
+    </div>
     <table class='table'>
         <tr>
             <th></th>
