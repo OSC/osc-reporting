@@ -1,15 +1,30 @@
+<%- 
+    gpu_using = jobs.count { |job| job.status == 'running' && job.native[:gres].include?("gpu") }
+    gpu_requesting = jobs.count { |job| job.status == 'queued' && job.native[:gres].include?("gpu") }
+    jobs_running = jobs.count { |job| job.status == 'running' }
+    jobs_queued = jobs.count { |job| job.status == 'queued' }
+-%>
+
 <div class='container border py-1 rounded-1'>
     <h2><%= cluster.capitalize() %> Cluster</h2>
     <div class="row justify-content-center">
         <div class="col-5">
             <div class="barchart">
-                <div class="bcBar bar-30">
-                    <p class='barValue'>5</p>
-                    <p class="barLabel">GPU Used</p>
+                <div class="bcBar bar-30 bg-primary">
+                    <p class="barValue">
+                        <%= gpu_using %>
+                    </p>
+                    <p class="barLabel">
+                        Using GPU
+                    </p>
                 </div>
-                <div class="bcBar bar-70">
-                    <p class="barValue">13</p>
-                    <p class="barLabel">GPU Queue</p>
+                <div class="bcBar bar-70 bg-primary">
+                    <p class="barValue">
+                        <%= gpu_requesting %>
+                    </p>
+                    <p class="barLabel">
+                        Requesting GPU
+                    </p>
                 </div>
             </div>
             <div class="barChartTitle text-center">
@@ -18,11 +33,25 @@
         </div>
         <div class="col-5">
             <div class="barchart">
-                <div class="bcBar bar-60"></div>
-                <div class="bcBar bar-40"></div>
+                <div class="bcBar bar-30 bg-danger">
+                    <p class='barValue'>
+                        <%= jobs_running %>
+                    </p>
+                    <p class="barLabel">
+                        Running
+                    </p>
+                </div>
+                <div class="bcBar bar-70 bg-danger">
+                    <p class="barValue">
+                        <%= jobs_queued %>
+                    </p>
+                    <p class="barLabel">
+                        Queued
+                    </p>
+                </div>
             </div>
             <div class="barChartTitle text-center">
-                <p>Jobs Running/Queued</p>
+                <p>Jobs</p>
             </div>
         </div>
     </div>

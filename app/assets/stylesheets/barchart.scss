@@ -13,7 +13,7 @@ $totalRows: 101;
 }
 
 .bcBar {
-  background-color: #ff4136;
+  background-color: #888888;
   flex-grow: 1;
   margin-right: $gap;
   border-radius: 5px;
@@ -34,10 +34,6 @@ $totalRows: 101;
 
 .bcBar:last-of-type {
   margin-right: 0px;
-}
-
-.bcBar:nth-child(even) {
-  background-color: #0074d9;
 }
 
 @for $i from 1 through $totalRows {
