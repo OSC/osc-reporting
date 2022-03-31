@@ -1,8 +1,12 @@
 <%- 
     gpu_using = jobs.count { |job| job.status == 'running' && job.native[:gres].include?("gpu") }
     gpu_requesting = jobs.count { |job| job.status == 'queued' && job.native[:gres].include?("gpu") }
+    gpu_using_pct = (gpu_using.to_f / (gpu_using + gpu_requesting) * 100).to_i
+    gpu_requesting_pct = (gpu_requesting.to_f / (gpu_using + gpu_requesting) * 100).to_i
     jobs_running = jobs.count { |job| job.status == 'running' }
     jobs_queued = jobs.count { |job| job.status == 'queued' }
+    jobs_running_pct = (jobs_running.to_f / (jobs_running + jobs_queued) * 100).to_i
+    jobs_queued_pct = (jobs_queued.to_f / (jobs_running + jobs_queued) * 100).to_i
 -%>
 
 <div class='container border py-1 rounded-1'>
@@ -10,20 +14,20 @@
     <div class="row justify-content-center">
         <div class="col-5">
             <div class="barchart">
-                <div class="bcBar bar-30 bg-primary">
+                <div class="bcBar bar-<%= gpu_using_pct %> bg-primary">
                     <p class="barValue">
                         <%= gpu_using %>
                     </p>
                     <p class="barLabel">
-                        Using GPU
+                        GPUs in use
                     </p>
                 </div>
-                <div class="bcBar bar-70 bg-primary">
+                <div class="bcBar bar-<%= gpu_requesting_pct %> bg-primary">
                     <p class="barValue">
                         <%= gpu_requesting %>
                     </p>
                     <p class="barLabel">
-                        Requesting GPU
+                        GPUs requested
                     </p>
                 </div>
             </div>
@@ -33,20 +37,20 @@
         </div>
         <div class="col-5">
             <div class="barchart">
-                <div class="bcBar bar-30 bg-danger">
+                <div class="bcBar bar-<%= jobs_running_pct %> bg-danger">
                     <p class='barValue'>
                         <%= jobs_running %>
                     </p>
                     <p class="barLabel">
-                        Running
+                        Jobs Running
                     </p>
                 </div>
-                <div class="bcBar bar-70 bg-danger">
+                <div class="bcBar bar-<%= jobs_queued_pct %> bg-danger">
                     <p class="barValue">
                         <%= jobs_queued %>
                     </p>
                     <p class="barLabel">
-                        Queued
+                        Jobs Queued
                     </p>
                 </div>
             </div>
