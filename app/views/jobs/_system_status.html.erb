@@ -59,21 +59,4 @@
             </div>
         </div>
     </div>
-
-    <table class='table'>
-        <tr>
-            <th>Jobs Running</th>
-            <th>Jobs Queued</th>
-        </tr>
-        <tr>
-            <td>
-                <%= jobs.count { |job| job.status == 'running' } %>
-                (<%= jobs.count { |job| job.status == 'running' && job.native[:gres].include?("gpu") } %> using gpu)
-            </td>
-            <td>
-                <%= jobs.count { |job| job.status == 'queued' } %>
-                (<%= jobs.count { |job| job.status == 'queued' && job.native[:gres].include?("gpu") } %> requesting gpu)
-            </td>
-        </tr>
-    </table>
 </div>
