@@ -1,5 +1,32 @@
 <div class='container border py-1 rounded-1'>
     <h2><%= cluster.capitalize() %> Cluster</h2>
+    <div class="row justify-content-center">
+        <div class="col-5">
+            <div class="barchart">
+                <div class="bcBar bar-30">
+                    <p class='barValue'>5</p>
+                    <p class="barLabel">GPU Used</p>
+                </div>
+                <div class="bcBar bar-70">
+                    <p class="barValue">13</p>
+                    <p class="barLabel">GPU Queue</p>
+                </div>
+            </div>
+            <div class="barChartTitle text-center">
+                <p>GPU Usage</p>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="barchart">
+                <div class="bcBar bar-60"></div>
+                <div class="bcBar bar-40"></div>
+            </div>
+            <div class="barChartTitle text-center">
+                <p>Jobs Running/Queued</p>
+            </div>
+        </div>
+    </div>
+
     <table class='table'>
         <tr>
             <th>Jobs Running</th>

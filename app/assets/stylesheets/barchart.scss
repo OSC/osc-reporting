@@ -1,0 +1,47 @@
+$gap: 5px;
+$totalRows: 101;
+
+.barchart {
+  width: 90%;
+  height: 250px;
+  margin: 0 auto;
+  display: flex;
+  padding: $gap;
+  box-sizing: border-box;
+  align-items: flex-end;
+  margin-bottom: 1em;
+}
+
+.bcBar {
+  background-color: #ff4136;
+  flex-grow: 1;
+  margin-right: $gap;
+  border-radius: 5px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bcBar .barValue {
+  margin-top: -1.4em;
+}
+
+.barLabel {
+  margin: 0;
+  margin-bottom: -1.4em;
+}
+
+.bcBar:last-of-type {
+  margin-right: 0px;
+}
+
+.bcBar:nth-child(even) {
+  background-color: #0074d9;
+}
+
+@for $i from 1 through $totalRows {
+  .bar-#{$i} {
+    height: $i * 1%;
+  }
+}
