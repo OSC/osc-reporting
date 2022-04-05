@@ -12,7 +12,7 @@
 <div class='container border py-1 rounded-1'>
     <h2><%= cluster.capitalize() %> Cluster</h2>
     <div class="row justify-content-center">
-        <div class="col-5">
+        <div class="col">
             <div class="barchart">
                 <div class="bcBar bar-<%= gpu_using_pct %> bg-primary">
                     <p class="barValue">
@@ -35,7 +35,7 @@
                 <p>GPU Usage</p>
             </div>
         </div>
-        <div class="col-5">
+        <div class="col">
             <div class="barchart">
                 <div class="bcBar bar-<%= jobs_running_pct %> bg-danger">
                     <p class='barValue'>
