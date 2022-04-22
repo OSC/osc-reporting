@@ -11,6 +11,9 @@ New features in this project not in osc-systemstatus include:
   * This is an open and ongoing goal. Contributors will come up with their own new forms of representation.
   * Created widgets should be able to be loaded independent of each other so that they may be added to the dashboard
 * Usage of the ood_core library instead of custom adapters.
+* Panels that inspect an apps usage.
+  * In length - how long users use a given app for.
+  * In resources - how many resources are typically being requested.
 
 ## Getting started
 
