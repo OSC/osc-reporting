@@ -1,5 +1,5 @@
 # OSC Reporting
-This webapp aims to provide insight into Open OnDemand jobs
+This webapp aims to provide insight into Open OnDemand jobs and resource usage.
 
 Under heavy development!
 
