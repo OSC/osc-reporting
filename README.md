@@ -1,8 +1,16 @@
 # OSC Reporting
+This webapp aims to provide insight into Open OnDemand jobs
 
 Under heavy development!
 
-This webapp aims to provide insight into Open OnDemand jobs
+## Project Definition and Goals
+This project exists to replicate and expand on the osc-systemstatus project [(Github)](https://github.com/OSC/osc-systemstatus) [(Webpage)](https://ondemand.osc.edu/pun/sys/systemstatus/clusters). 
+
+New features in this project not in osc-systemstatus include:
+* More representations of ood systems data.
+  * This is an open and ongoing goal. Contributors will come up with their own new forms of representation.
+  * Created widgets should be able to be loaded independent of each other so that they may be added to the dashboard
+* Usage of the ood_core library instead of custom adapters.
 
 ## Getting started
 
