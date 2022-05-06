@@ -5,17 +5,17 @@
     <div class="row justify-content-center">
         <div class="col">
             <div class="barchart">
-                <div class="bcBar bar-<%= cluster_info[:gpu_using_pct] %> bg-primary">
+                <div class="bcBar bar-<%= cluster_info[:gpu_jobs_running_pct] %> bg-primary">
                     <p class="barValue">
-                        <%= cluster_info[:gpu_using] %>
+                        <%= cluster_info[:gpu_jobs_running] %>
                     </p>
                     <p class="barLabel">
                         Active GPU jobs
                     </p>
                 </div>
-                <div class="bcBar bar-<%= cluster_info[:gpu_requesting_pct] %> bg-primary">
+                <div class="bcBar bar-<%= cluster_info[:gpu_jobs_queued_pct] %> bg-primary">
                     <p class="barValue">
-                        <%= cluster_info[:gpu_requesting] %>
+                        <%= cluster_info[:gpu_jobs_queued] %>
                     </p>
                     <p class="barLabel">
                         Queued GPU jobs
