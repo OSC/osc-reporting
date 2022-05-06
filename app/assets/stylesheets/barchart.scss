@@ -36,7 +36,7 @@
   margin-right: 0px;
 }
 
-@for $i from 1 through $totalRows {
+@for $i from 1 through $total-rows {
   .bar-#{$i} {
     height: $i * 1%;
   }
