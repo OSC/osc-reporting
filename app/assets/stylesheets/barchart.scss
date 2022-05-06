@@ -1,0 +1,43 @@
+.barchart {
+  width: 90%;
+  height: 12em;
+  margin: 0 auto;
+  display: flex;
+  padding: $gap;
+  box-sizing: border-box;
+  align-items: flex-end;
+  margin-bottom: 1em;
+}
+
+.bc-bar {
+  background-color: #888888;
+  flex-grow: 1;
+  margin-right: $gap;
+  border-radius: 5px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bar-value {
+  margin: 0;
+  margin-top: -1.4em;
+}
+
+.bar-label {
+  margin: 0;
+  margin-bottom: -1.6em;
+  font-size: 0.7em;
+  line-height: 0.7em;
+}
+
+.bc-bar:last-of-type {
+  margin-right: 0px;
+}
+
+@for $i from 1 through $total-rows {
+  .bar-#{$i} {
+    height: $i * 1%;
+  }
+}
