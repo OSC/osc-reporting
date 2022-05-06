@@ -1,30 +1,21 @@
-<%- 
-    gpu_using = jobs.count { |job| job.status == 'running' && job.native[:gres].include?("gpu") }
-    gpu_requesting = jobs.count { |job| job.status == 'queued' && job.native[:gres].include?("gpu") }
-    gpu_using_pct = (gpu_using + gpu_requesting != 0) ? (gpu_using.to_f / (gpu_using + gpu_requesting) * 100).to_i : 0
-    gpu_requesting_pct = (gpu_using + gpu_requesting != 0) ? (gpu_requesting.to_f / (gpu_using + gpu_requesting) * 100).to_i : 0
-    jobs_running = jobs.count { |job| job.status == 'running' }
-    jobs_queued = jobs.count { |job| job.status == 'queued' }
-    jobs_running_pct = (jobs_running + jobs_queued != 0) ? (jobs_running.to_f / (jobs_running + jobs_queued) * 100).to_i : 0
-    jobs_queued_pct = (jobs_running + jobs_queued != 0) ? (jobs_queued.to_f / (jobs_running + jobs_queued) * 100).to_i : 0
--%>
+<%- cluster_info = get_cluster_info(jobs) -%>
 
 <div class='container border py-1 rounded-1'>
     <h2><%= cluster.capitalize() %> Cluster</h2>
     <div class="row justify-content-center">
         <div class="col">
             <div class="barchart">
-                <div class="bcBar bar-<%= gpu_using_pct %> bg-primary">
+                <div class="bcBar bar-<%= cluster_info[:gpu_using_pct] %> bg-primary">
                     <p class="barValue">
-                        <%= gpu_using %>
+                        <%= cluster_info[:gpu_using] %>
                     </p>
                     <p class="barLabel">
                         GPUs in use
                     </p>
                 </div>
-                <div class="bcBar bar-<%= gpu_requesting_pct %> bg-primary">
+                <div class="bcBar bar-<%= cluster_info[:gpu_requesting_pct] %> bg-primary">
                     <p class="barValue">
-                        <%= gpu_requesting %>
+                        <%= cluster_info[:gpu_requesting] %>
                     </p>
                     <p class="barLabel">
                         GPUs requested
@@ -37,17 +28,17 @@
         </div>
         <div class="col">
             <div class="barchart">
-                <div class="bcBar bar-<%= jobs_running_pct %> bg-danger">
+                <div class="bcBar bar-<%= cluster_info[:jobs_running_pct] %> bg-danger">
                     <p class='barValue'>
-                        <%= jobs_running %>
+                        <%= cluster_info[:jobs_running] %>
                     </p>
                     <p class="barLabel">
                         Jobs Running
                     </p>
                 </div>
-                <div class="bcBar bar-<%= jobs_queued_pct %> bg-danger">
+                <div class="bcBar bar-<%= cluster_info[:jobs_queued_pct] %> bg-danger">
                     <p class="barValue">
-                        <%= jobs_queued %>
+                        <%= cluster_info[:jobs_queued] %>
                     </p>
                     <p class="barLabel">
                         Jobs Queued
