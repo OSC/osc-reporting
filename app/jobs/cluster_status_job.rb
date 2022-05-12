@@ -33,10 +33,6 @@ class ClusterStatusJob < ApplicationJob
     # info = info_from_jobs(cluster.job_adapter.info_all)
     # broadcast info
     puts "current time is #{Time.now}"
-  end
-
-  def perform_forever(cluster_id)
-    perform(cluster_id)
-    perform_forever(wait: RUN_EVERY)
+    self.class.set(wait: 1.minutes).perform_later(cluster_id)
   end
 end
