@@ -29,10 +29,10 @@ class ClusterStatusJob < ApplicationJob
   end
 
   def perform(cluster_id)
-    # cluster = clusters[cluster_id.to_sym]
-    # info = info_from_jobs(cluster.job_adapter.info_all)
+    cluster = self.class.clusters[cluster_id]
+    info = self.class.info_from_jobs(cluster.job_adapter.info_all)
     # broadcast info
-    puts "current time is #{Time.now}"
-    self.class.set(wait: 1.minutes).perform_later(cluster_id)
+    puts info
+    self.class.set(wait: 15.minutes).perform_later(cluster_id)
   end
 end
