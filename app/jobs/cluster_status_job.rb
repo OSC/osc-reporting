@@ -21,15 +21,17 @@ class ClusterStatusJob < ApplicationJob
 
     def clusters
       Rails.cache.fetch('clusters', expires_in: 12.hours) do
-        OodCore::Clusters.load_file('/etc/ood/config/clusters.d/').reject do |c|
-          !c.errors.empty? || !c.allow? || c.kubernetes? || c.linux_host?
-        end
+        OodCore::Clusters.new(
+          OodCore::Clusters.load_file('/etc/ood/config/clusters.d/').reject do |c|
+            !c.errors.empty? || !c.allow? || c.kubernetes? || c.linux_host?
+          end
+        )
       end
     end
   end
 
   def perform(cluster_id)
-    cluster = self.class.clusters[cluster_id]
+    cluster = self.class.clusters[cluster_id.to_sym]
     info = self.class.info_from_jobs(cluster.job_adapter.info_all)
     # broadcast info
     puts info
