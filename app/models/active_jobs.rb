@@ -4,14 +4,16 @@ class ActiveJobs
   class << self
     def clusters
       Rails.cache.fetch('clusters', expires_in: 12.hours) do
-        OodCore::Clusters.load_file('/etc/ood/config/clusters.d/').reject do |c|
-          !c.errors.empty? || !c.allow? || c.kubernetes? || c.linux_host?
-        end
+        OodCore::Clusters.new(
+          OodCore::Clusters.load_file('/etc/ood/config/clusters.d/').reject do |c|
+            !c.errors.empty? || !c.allow? || c.kubernetes? || c.linux_host?
+          end
+        )
       end
     end
 
     def all
-      Rails.cache.fetch('clusters', expires_in: 30.minutes) do
+      Rails.cache.fetch('all_jobs', expires_in: 30.minutes) do
         clusters.map do |c|
           {
             'cluster' => c.id,

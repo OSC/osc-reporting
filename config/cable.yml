@@ -1,9 +1,11 @@
-default:
-  adapter: asyncasfd
+default: &default
+  adapter: async
 
 test:
   adapter: test
 
-development: &default
+development:
+  <<: *default
 
-production: &default
+production:
+  <<: *default

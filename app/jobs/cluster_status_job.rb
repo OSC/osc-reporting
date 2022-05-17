@@ -39,7 +39,7 @@ class ClusterStatusJob < ApplicationJob
               target: "system_status_#{cluster_id}",
               locals: { cluster_info: info, cluster_name: cluster_id }
             }
-    Turbo::StreamsChannel.broadcast_replace_to("system_status", **opts)
-    self.class.set(wait: 15.minutes).perform_later(cluster_id)
+    Turbo::StreamsChannel.broadcast_replace_to("system_status_#{cluster_id}", **opts)
+    self.class.set(wait: 3.minutes).perform_later(cluster_id)
   end
 end
