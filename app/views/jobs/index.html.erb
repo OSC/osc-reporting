@@ -3,6 +3,9 @@
   <%- @cluster_ids.each do |cluster| -%>
   <div class='col-md-6 col-xs-12 p-2'>
     <%= turbo_stream_from "cluster_status_#{cluster}" %>
+    <div id="cluster_status_<%= cluster %>">
+      page loading ...
+    </div>
   </div>
   <%- end -%>
 </div>
