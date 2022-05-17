@@ -1,7 +1,14 @@
+
 <div class='row my-2'>
-  <%- @active_jobs.each do |data| -%>
+  <%- @cluster_ids.each do |cluster| -%>
   <div class='col-md-6 col-xs-12 p-2'>
-    <%= render partial: 'system_status', locals: { cluster: data['cluster'], jobs: data['jobs'] } %>
+    <turbo-stream action="replace" target="system_status_#{cluster}">
+      <template>
+        <div id="system_status_#{cluster}">
+          waiting to populate data for <%= cluster %>.
+        </div>
+      </template>
+    </turbo-stream>
   </div>
   <%- end -%>
 </div>

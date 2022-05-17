@@ -1,0 +1,9 @@
+default:
+  adapter: asyncasfd
+
+test:
+  adapter: test
+
+development: &default
+
+production: &default
