@@ -1,50 +1,52 @@
-<div class='container border py-1 rounded-1'>
-    <h2><%= cluster_name.capitalize() %> Cluster</h2>
-    <div class="row justify-content-center">
-        <div class="col">
-            <div class="barchart">
-                <div class="bc-bar bar-<%= cluster_info[:gpu_jobs_running_pct] %> bg-primary">
-                    <p class="bar-value">
-                        <%= cluster_info[:gpu_jobs_running] %>
-                    </p>
-                    <p class="bar-label">
-                        Active GPU jobs
-                    </p>
+<div id="cluster_status_<%= cluster_name %>">
+    <div class='container border py-1 rounded-1'>
+        <h2><%= cluster_name.capitalize() %> Cluster</h2>
+        <div class="row justify-content-center">
+            <div class="col">
+                <div class="barchart">
+                    <div class="bc-bar bar-<%= cluster_info[:gpu_jobs_running_pct] %> bg-primary">
+                        <p class="bar-value">
+                            <%= cluster_info[:gpu_jobs_running] %>
+                        </p>
+                        <p class="bar-label">
+                            Active GPU jobs
+                        </p>
+                    </div>
+                    <div class="bc-bar bar-<%= cluster_info[:gpu_jobs_queued_pct] %> bg-primary">
+                        <p class="bar-value">
+                            <%= cluster_info[:gpu_jobs_queued] %>
+                        </p>
+                        <p class="bar-label">
+                            Queued GPU jobs
+                        </p>
+                    </div>
                 </div>
-                <div class="bc-bar bar-<%= cluster_info[:gpu_jobs_queued_pct] %> bg-primary">
-                    <p class="bar-value">
-                        <%= cluster_info[:gpu_jobs_queued] %>
-                    </p>
-                    <p class="bar-label">
-                        Queued GPU jobs
-                    </p>
-                </div>
-            </div>
-            <div class="bar-chart-title text-center">
-                <p>GPU Usage</p>
-            </div>
-        </div>
-        <div class="col">
-            <div class="barchart">
-                <div class="bc-bar bar-<%= cluster_info[:jobs_running_pct] %> bg-danger">
-                    <p class='bar-value'>
-                        <%= cluster_info[:jobs_running] %>
-                    </p>
-                    <p class="bar-label">
-                        Jobs Running
-                    </p>
-                </div>
-                <div class="bc-bar bar-<%= cluster_info[:jobs_queued_pct] %> bg-danger">
-                    <p class="bar-value">
-                        <%= cluster_info[:jobs_queued] %>
-                    </p>
-                    <p class="bar-label">
-                        Jobs Queued
-                    </p>
+                <div class="bar-chart-title text-center">
+                    <p>GPU Usage</p>
                 </div>
             </div>
-            <div class="bar-chart-title text-center">
-                <p>Jobs</p>
+            <div class="col">
+                <div class="barchart">
+                    <div class="bc-bar bar-<%= cluster_info[:jobs_running_pct] %> bg-danger">
+                        <p class='bar-value'>
+                            <%= cluster_info[:jobs_running] %>
+                        </p>
+                        <p class="bar-label">
+                            Jobs Running
+                        </p>
+                    </div>
+                    <div class="bc-bar bar-<%= cluster_info[:jobs_queued_pct] %> bg-danger">
+                        <p class="bar-value">
+                            <%= cluster_info[:jobs_queued] %>
+                        </p>
+                        <p class="bar-label">
+                            Jobs Queued
+                        </p>
+                    </div>
+                </div>
+                <div class="bar-chart-title text-center">
+                    <p>Jobs</p>
+                </div>
             </div>
         </div>
     </div>
