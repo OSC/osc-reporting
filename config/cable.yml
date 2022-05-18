@@ -1,0 +1,11 @@
+default: &default
+  adapter: async
+
+test:
+  adapter: test
+
+development:
+  <<: *default
+
+production:
+  <<: *default

@@ -2,6 +2,9 @@
 import "@hotwired/turbo-rails";
 import "./controllers";
 
+
+import * as Turbo from "@hotwired/turbo";
+
 window.addEventListener('turbo:load', (event) => {
     // Reload page after a given amount of time
     const SECONDS_BEFORE_RELOAD = 15 * 60;

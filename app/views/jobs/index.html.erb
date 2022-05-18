@@ -1,10 +1,16 @@
+
 <div class='row my-2'>
-  <%- @active_jobs.each do |data| -%>
+  <%- @cluster_ids.each do |cluster| -%>
   <div class='col-md-6 col-xs-12 p-2'>
-    <%= render partial: 'system_status', locals: { cluster: data['cluster'], jobs: data['jobs'] } %>
+    <%= turbo_stream_from "cluster_status_#{cluster}" %>
+    <div id="cluster_status_<%= cluster %>">
+      page loading ...
+    </div>
   </div>
   <%- end -%>
 </div>
+
+
 
 <div class='row pb-3 justify-content-center'>
   <div class='col-md-8'>
