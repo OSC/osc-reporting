@@ -3,9 +3,7 @@
   <%- @clusters_with_info.each do |cluster| -%>
   <div class='col-md-6 col-xs-12 p-2'>
     <%= turbo_stream_from "cluster_status_#{cluster['cluster_name']}" %>
-    <div id="cluster_status_<%= cluster['cluster_name'] %>">
-      <%= render partial: 'system_status', locals: {cluster_name: cluster['cluster_name'], cluster_info: cluster['info']} %>
-    </div>
+    <%= render partial: 'system_status', locals: {cluster_name: cluster['cluster_name'], cluster_info: cluster['info']} %>
   </div>
   <%- end -%>
 </div>
