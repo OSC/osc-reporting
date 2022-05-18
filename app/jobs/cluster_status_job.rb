@@ -40,6 +40,6 @@ class ClusterStatusJob < ApplicationJob
               locals: { cluster_info: info, cluster_name: cluster_id }
             }
     Turbo::StreamsChannel.broadcast_replace_to("cluster_status_#{cluster_id}", **opts)
-    self.class.set(wait: 30.seconds).perform_later(cluster_id)
+    self.class.set(wait: 15.minutes).perform_later(cluster_id)
   end
 end
