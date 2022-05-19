@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   resources :jobs, only: [:index]
 
   root "jobs#index"
+
+  get "appInspector", to: "app_inspector#index"
 end
