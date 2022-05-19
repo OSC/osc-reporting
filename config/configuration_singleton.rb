@@ -90,7 +90,7 @@ class ConfigurationSingleton
   end
 
   # Minutes to wait between cluster_status reloads
-  def minutes_between_cluster_status_reload
-    ENV['MINUTES_BETWEEN_CLUSTER_STATUS_RELOAD'].to_i || 1
+  def cluster_reload_delay
+    ENV['OOD_CLUSTER_RELOAD_DELAY'].to_i || 1
   end
 end
