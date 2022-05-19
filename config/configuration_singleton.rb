@@ -93,4 +93,9 @@ class ConfigurationSingleton
   def cluster_reload_delay
     ENV['OOD_CLUSTER_RELOAD_DELAY'].to_i || 1
   end
+
+  # Location of clusters configuration folder
+  def clusters_config_dir
+    ENV['CLUSTERS_CONFIG_DIR'] || '/etc/ood/config/clusters.d/'
+  end
 end

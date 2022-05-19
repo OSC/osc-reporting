@@ -22,7 +22,7 @@ class ActiveJobs
     def clusters
       Rails.cache.fetch('clusters', expires_in: 12.hours) do
         OodCore::Clusters.new(
-          OodCore::Clusters.load_file('/etc/ood/config/clusters.d/').reject do |c|
+          OodCore::Clusters.load_file(Configuration.clusters_config_dir).reject do |c|
             !c.errors.empty? || !c.allow? || c.kubernetes? || c.linux_host?
           end
         )
