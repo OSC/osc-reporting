@@ -1,1 +1,87 @@
-<h1>Hello App Inspector</h1>
+<style>
+  p {
+    margin: 0;
+  }
+  #app-inspector-semi-outer {
+    margin-top: 10px;
+    display: flex;
+  }
+  #y-label {
+    height: 18pt;
+    position: absolute;
+    margin-left: -50px;
+    margin-top: 60px;
+    transform: rotate(-90deg);
+    transform-origin: 100% 100%
+  }
+  #x-label {
+    margin-top: 2em;
+    text-align: center;
+  }
+  #app-inspector-inner {
+    margin-left: 2em;
+    margin-right: 2em;
+    width: 100%;
+    border: 1px solid black;
+    display: flex;
+    height: 300px;
+  }
+  .app-inspector-bar {
+    background-color: red;
+    text-align: center;
+    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .app-inspector-bar-y {
+    margin-top: -1.5em;
+  }
+  .app-inspector-bar-x {
+    margin-bottom: -2em;
+  }
+</style>
+
+<h1>App Inspector</h1>
+<select name="app-inspector-selector" id="app-inspector-selector">
+  <option value="sys/bc_osc_jupyter">sys/bc_osc_jupyter</option>
+</select>
+<div id="app-inspector-semi-outer">
+  <p id="y-label">Frequency</p>
+  <div id="app-inspector-inner">
+    <div id="app-inspector-bar-1" class="app-inspector-bar"></div>
+  </div>
+</div>
+<p id="x-label">Cores per job</p>
+<input id="app-inspector-bins-slider" type="range" min="1" max="20" value="5">
+
+<script>
+  const innerBox = document.getElementById("app-inspector-inner");
+  const binsSlider = document.getElementById("app-inspector-bins-slider");
+  const maxGapWidth = 10; // pixels
+  function populateGraph() {
+    innerBox.innerHTML = "";
+    let binCount = binsSlider.value;
+    let barWidth = (innerBox.offsetWidth / binCount) - maxGapWidth;
+    for (let i=0; i< binsSlider.value; i++) {
+      let newBar = document.createElement("div");
+      newBar.classList.add("app-inspector-bar");
+      let height = Math.floor(Math.random() * 200);
+      let barY = document.createElement("p");
+      barY.textContent = height;
+      barY.classList.add("app-inspector-bar-y");
+      newBar.append(barY);
+      let barX = document.createElement("p")
+      barX.textContent = i;
+      barX.classList.add("app-inspector-bar-x");
+      newBar.append(barX);
+      newBar.style.width = barWidth + "px";
+      newBar.style.margin = maxGapWidth/2 + "px";
+      newBar.style.height = height + "px";
+      innerBox.append(newBar);
+    }
+  }
+  populateGraph();
+
+  binsSlider.addEventListener("change", populateGraph);
+</script>
