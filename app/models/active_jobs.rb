@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class ActiveJobs
+
+  ALL_LOCK = Mutex.new
+
   class << self
     def clusters
       Rails.cache.fetch('clusters', expires_in: 12.hours) do
@@ -13,34 +16,24 @@ class ActiveJobs
     end
 
     def all
-      Rails.cache.fetch('all_jobs', expires_in: 45.seconds) do
-        Rails.logger.info("fetching new jobs at #{Time.now}")
+      Rails.logger.debug("ActiveJobs.all being called at at #{Time.now}")
+      ALL_LOCK.synchronize do
+        Rails.cache.fetch('all_jobs', expires_in: 50.seconds) do
+          Rails.logger.debug("ActiveJobs fetching new jobs at #{Time.now}")
 
-        clusters.map do |c|
-          jobs = info_all(c)
-          {
-            'cluster_name' => c.id,
-            'info'    => info_from_jobs(jobs)
-          }
+          clusters.map do |c|
+            jobs = info_all(c)
+            {
+              'cluster_name' => c.id,
+              'info'    => info_from_jobs(jobs)
+            }
+          end
         end
-
-        # info = ClusterInfo.new(all)
-        # info.updated_at = Time.now.utc
-        # info
       end
     end
 
     def cluster_info(cluster_id)
       ActiveJobs.all.select { |info| info['cluster_name'] == cluster_id }.first
-    end
-
-    class ClusterInfo < SimpleDelegator
-      include ActiveModel::Serialization
-      attr_accessor :updated_at
-
-      def marshal_dump
-        __getobj__
-      end
     end
 
     private
