@@ -52,6 +52,23 @@ class Job < ApplicationRecord
       # Rails.logger.info("formatting #{number} to #{(number * 100).to_i}")
       (number * 100).to_i
     end
+
+    def app_inspector_data_js
+      apps = {}
+      Job.all.each do |job|
+        next unless job.tres
+
+        cpus = job.tres.match(/cpu=(\d*)/).captures[0].to_i
+        if !apps.key?(job.name)
+          apps[job.name] = { cpus => 1 }
+        elsif !apps[job.name].key?(cpus)
+          apps[job.name][cpus] = 1
+        else
+          apps[job.name][cpus] += 1
+        end
+      end
+      apps
+    end
   end
 
   def simple_name

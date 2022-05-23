@@ -56,6 +56,8 @@
 <input id="app-inspector-bins-slider" type="range" min="1" max="20" value="5">
 
 <script>
+  let app_inspector_data = <%= @app_inspector_data.to_json.html_safe %>
+  console.log(app_inspector_data['ondemand/sys/dashboard/sys/bc_osc_ansys_workbench']);
   const innerBox = document.getElementById("app-inspector-inner");
   const binsSlider = document.getElementById("app-inspector-bins-slider");
   const maxGapWidth = 10; // pixels
