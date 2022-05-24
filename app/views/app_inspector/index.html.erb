@@ -57,10 +57,19 @@
 
 <script>
   let app_inspector_data = <%= @app_inspector_data.to_json.html_safe %>
-  console.log(app_inspector_data['ondemand/sys/dashboard/sys/bc_osc_jupyter']);
   const innerBox = document.getElementById("app-inspector-inner");
   const binsSlider = document.getElementById("app-inspector-bins-slider");
   const appSelect = document.getElementById("app-inspector-selector");
+  appSelect.innerHTML = "";
+  apps = Object.keys(app_inspector_data);
+  apps.forEach((appName) => {
+    let opt = document.createElement('option');
+    opt.value = appName;
+    opt.innerHTML = appName;
+    appSelect.appendChild(opt);
+  })
+  if (apps.includes('ondemand/sys/dashboard/sys/bc_osc_jupyter'))
+    appSelect.value = 'ondemand/sys/dashboard/sys/bc_osc_jupyter';
   const maxGapWidth = 10; // pixels
   function populateGraph() {
     innerBox.innerHTML = "";
@@ -81,7 +90,6 @@
       binData.push(binValue);
     }
     let pixels_per_count = 200/Math.max(...binData);
-    console.log(binData);
     // Render the graph with data from bins
     for (let i=0; i< binsSlider.value; i++) {
       let newBar = document.createElement("div");
@@ -104,4 +112,5 @@
   populateGraph();
 
   binsSlider.addEventListener("change", populateGraph);
+  appSelect.addEventListener("change", populateGraph);
 </script>
