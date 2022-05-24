@@ -44,7 +44,7 @@
 
 <h1>App Inspector</h1>
 <select name="app-inspector-selector" id="app-inspector-selector">
-  <option value="sys/bc_osc_jupyter">sys/bc_osc_jupyter</option>
+  <option value="ondemand/sys/dashboard/sys/bc_osc_jupyter">ondemand/sys/dashboard/sys/bc_osc_jupyter</option>
 </select>
 <div id="app-inspector-semi-outer">
   <p id="y-label">Frequency</p>
@@ -57,24 +57,42 @@
 
 <script>
   let app_inspector_data = <%= @app_inspector_data.to_json.html_safe %>
-  console.log(app_inspector_data['ondemand/sys/dashboard/sys/bc_osc_ansys_workbench']);
+  console.log(app_inspector_data['ondemand/sys/dashboard/sys/bc_osc_jupyter']);
   const innerBox = document.getElementById("app-inspector-inner");
   const binsSlider = document.getElementById("app-inspector-bins-slider");
+  const appSelect = document.getElementById("app-inspector-selector");
   const maxGapWidth = 10; // pixels
   function populateGraph() {
     innerBox.innerHTML = "";
     let binCount = binsSlider.value;
     let barWidth = (innerBox.offsetWidth / binCount) - maxGapWidth;
+    let app_name = appSelect.value;
+    let keys = Object.keys(app_inspector_data[app_name]);
+    let max = Math.max(...keys);
+    let binSize = Math.ceil(max / binCount);
+    // Generate an array representing the bins containing the frequency
+    let binData = []
+    for (let i=0; i<binCount; i++) {
+      let binValue = 0;
+      keys.forEach((key) => {
+        if (key >= i*binSize && key < (i+1)*binSize) 
+          binValue += app_inspector_data[app_name][key];
+      })
+      binData.push(binValue);
+    }
+    let pixels_per_count = 200/Math.max(...binData);
+    console.log(binData);
+    // Render the graph with data from bins
     for (let i=0; i< binsSlider.value; i++) {
       let newBar = document.createElement("div");
       newBar.classList.add("app-inspector-bar");
-      let height = Math.floor(Math.random() * 200);
+      let height = pixels_per_count * binData[i];
       let barY = document.createElement("p");
-      barY.textContent = height;
+      barY.textContent = binData[i];
       barY.classList.add("app-inspector-bar-y");
       newBar.append(barY);
       let barX = document.createElement("p")
-      barX.textContent = i;
+      barX.textContent = i*binSize + '-' + ((i+1)*binSize-1);
       barX.classList.add("app-inspector-bar-x");
       newBar.append(barX);
       newBar.style.width = barWidth + "px";
