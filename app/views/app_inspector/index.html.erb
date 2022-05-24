@@ -32,7 +32,7 @@
     let keys = Object.keys(app_inspector_data[app_name]);
     let max = Math.max(...keys);
     let binSize = Math.ceil(max / binCount);
-    // Generate an array representing the bins containing the frequency
+    // Generate an array representing the bins containing the count of jobs in bin
     let binData = []
     for (let i=0; i<binCount; i++) {
       let binValue = 0;
