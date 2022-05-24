@@ -14,11 +14,11 @@
 <input id="app_inspector_bins_slider" type="range" min="1" max="20" value="5">
 
 <script>
-  let appInspectorData = <%= @app_inspector_data.to_json.html_safe %>
-  const innerBox = document.getElementById("app_inspector_inner");
-  const binsSlider = document.getElementById("app_inspector_bins_slider");
-  const appSelect = document.getElementById("app_inspector_selector");
-  const maxGapWidth = 10; // pixels
+  appInspectorData = <%= @app_inspector_data.to_json.html_safe %>
+  innerBox = document.getElementById("app_inspector_inner");
+  binsSlider = document.getElementById("app_inspector_bins_slider");
+  appSelect = document.getElementById("app_inspector_selector");
+  maxGapWidth = 10; // pixels
 
   apps = Object.keys(appInspectorData);
   if (apps.includes('ondemand/sys/dashboard/sys/bc_osc_jupyter'))
