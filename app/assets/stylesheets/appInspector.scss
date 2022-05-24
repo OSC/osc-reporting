@@ -1,0 +1,41 @@
+p {
+  margin: 0;
+}
+#app-inspector-semi-outer {
+  margin-top: 10px;
+  display: flex;
+}
+#y-label {
+  height: 18pt;
+  position: absolute;
+  margin-left: -50px;
+  margin-top: 60px;
+  transform: rotate(-90deg);
+  transform-origin: 100% 100%
+}
+#x-label {
+  margin-top: 2em;
+  text-align: center;
+}
+#app-inspector-inner {
+  margin-left: 2em;
+  margin-right: 2em;
+  width: 100%;
+  border: 1px solid black;
+  display: flex;
+  height: 300px;
+}
+.app-inspector-bar {
+  background-color: red;
+  text-align: center;
+  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.app-inspector-bar-y {
+  margin-top: -1.5em;
+}
+.app-inspector-bar-x {
+  margin-bottom: -2em;
+}
