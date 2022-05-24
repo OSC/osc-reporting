@@ -37,7 +37,7 @@
     for (let i=0; i<binCount; i++) {
       let binValue = 0;
       keys.forEach((key) => {
-        if (key >= i*binSize && key < (i+1)*binSize) 
+        if (key > i*binSize && key <= (i+1)*binSize) 
           binValue += app_inspector_data[app_name][key];
       })
       binData.push(binValue);
@@ -53,7 +53,7 @@
       barY.classList.add("app-inspector-bar-y");
       newBar.append(barY);
       let barX = document.createElement("p")
-      barX.textContent = i*binSize + '-' + ((i+1)*binSize-1);
+      barX.textContent = (i*binSize+1) + '-' + (i+1)*binSize;
       barX.classList.add("app-inspector-bar-x");
       newBar.append(barX);
       newBar.style.width = barWidth + "px";
