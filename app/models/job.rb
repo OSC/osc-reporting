@@ -69,6 +69,10 @@ class Job < ApplicationRecord
       end
       apps
     end
+
+    def all_names
+      Job.all.map(&:name).uniq
+    end
   end
 
   def simple_name

@@ -44,7 +44,9 @@
 
 <h1>App Inspector</h1>
 <select name="app-inspector-selector" id="app-inspector-selector">
-  <option value="ondemand/sys/dashboard/sys/bc_osc_jupyter">ondemand/sys/dashboard/sys/bc_osc_jupyter</option>
+  <% @app_names.each do |app_name| %>
+    <option value="<%= app_name %>"><%= app_name %></option>
+  <%end %>
 </select>
 <div id="app-inspector-semi-outer">
   <p id="y-label">Frequency</p>
@@ -60,17 +62,12 @@
   const innerBox = document.getElementById("app-inspector-inner");
   const binsSlider = document.getElementById("app-inspector-bins-slider");
   const appSelect = document.getElementById("app-inspector-selector");
-  appSelect.innerHTML = "";
+  const maxGapWidth = 10; // pixels
+
   apps = Object.keys(app_inspector_data);
-  apps.forEach((appName) => {
-    let opt = document.createElement('option');
-    opt.value = appName;
-    opt.innerHTML = appName;
-    appSelect.appendChild(opt);
-  })
   if (apps.includes('ondemand/sys/dashboard/sys/bc_osc_jupyter'))
     appSelect.value = 'ondemand/sys/dashboard/sys/bc_osc_jupyter';
-  const maxGapWidth = 10; // pixels
+
   function populateGraph() {
     innerBox.innerHTML = "";
     let binCount = binsSlider.value;
