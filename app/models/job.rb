@@ -53,7 +53,7 @@ class Job < ApplicationRecord
       (number * 100).to_i
     end
 
-    def app_inspector_data_js
+    def app_inspector_data
       apps = {}
       Job.all.each do |job|
         next unless job.tres
