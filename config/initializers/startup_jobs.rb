@@ -2,6 +2,6 @@
 
 Rails.application.config.after_initialize do
   ActiveJobs.clusters.each do |cluster|
-    ClusterStatusJob.perform_now(cluster.id)
+    ClusterStatusJob.perform_later(cluster.id)
   end
 end
