@@ -1,26 +1,26 @@
 <h1>App Inspector</h1>
-<select name="app-inspector-selector" id="app-inspector-selector">
+<select name="app_inspector_selector" id="app_inspector_selector">
   <% @app_names.each do |app_name| %>
     <option value="<%= app_name %>"><%= app_name %></option>
   <%end %>
 </select>
-<div id="app-inspector-semi-outer">
-  <p id="y-label">Frequency</p>
-  <div id="app-inspector-inner">
-    <div id="app-inspector-bar-1" class="app-inspector-bar"></div>
+<div id="app_inspector_semi_outer">
+  <p id="y_label">Frequency</p>
+  <div id="app_inspector_inner">
+    <div id="app_inspector_bar_1" class="app-inspector-bar"></div>
   </div>
 </div>
-<p id="x-label">Cores per job</p>
-<input id="app-inspector-bins-slider" type="range" min="1" max="20" value="5">
+<p id="x_label">Cores per job</p>
+<input id="app_inspector_bins_slider" type="range" min="1" max="20" value="5">
 
 <script>
-  let app_inspector_data = <%= @app_inspector_data.to_json.html_safe %>
-  const innerBox = document.getElementById("app-inspector-inner");
-  const binsSlider = document.getElementById("app-inspector-bins-slider");
-  const appSelect = document.getElementById("app-inspector-selector");
+  let appInspectorData = <%= @app_inspector_data.to_json.html_safe %>
+  const innerBox = document.getElementById("app_inspector_inner");
+  const binsSlider = document.getElementById("app_inspector_bins_slider");
+  const appSelect = document.getElementById("app_inspector_selector");
   const maxGapWidth = 10; // pixels
 
-  apps = Object.keys(app_inspector_data);
+  apps = Object.keys(appInspectorData);
   if (apps.includes('ondemand/sys/dashboard/sys/bc_osc_jupyter'))
     appSelect.value = 'ondemand/sys/dashboard/sys/bc_osc_jupyter';
 
@@ -28,8 +28,8 @@
     innerBox.innerHTML = "";
     let binCount = binsSlider.value;
     let barWidth = (innerBox.offsetWidth / binCount) - maxGapWidth;
-    let app_name = appSelect.value;
-    let keys = Object.keys(app_inspector_data[app_name]);
+    let appName = appSelect.value;
+    let keys = Object.keys(appInspectorData[appName]);
     let max = Math.max(...keys);
     let binSize = Math.ceil(max / binCount);
     // Generate an array representing the bins containing the count of jobs in bin
@@ -38,7 +38,7 @@
       let binValue = 0;
       keys.forEach((key) => {
         if (key > i*binSize && key <= (i+1)*binSize) 
-          binValue += app_inspector_data[app_name][key];
+          binValue += appInspectorData[appName][key];
       })
       binData.push(binValue);
     }

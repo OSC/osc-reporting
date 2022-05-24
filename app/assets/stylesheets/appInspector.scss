@@ -1,11 +1,11 @@
 p {
   margin: 0;
 }
-#app-inspector-semi-outer {
+#app_inspector_semi_outer {
   margin-top: 10px;
   display: flex;
 }
-#y-label {
+#y_label {
   height: 18pt;
   position: absolute;
   margin-left: -50px;
@@ -13,11 +13,11 @@ p {
   transform: rotate(-90deg);
   transform-origin: 100% 100%
 }
-#x-label {
+#x_label {
   margin-top: 2em;
   text-align: center;
 }
-#app-inspector-inner {
+#app_inspector_inner {
   margin-left: 2em;
   margin-right: 2em;
   width: 100%;
