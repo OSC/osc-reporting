@@ -4,17 +4,11 @@
     <option value="<%= app_name %>"><%= app_name %></option>
   <%end %>
 </select>
-<div id="app_inspector_semi_outer">
-  <p id="y_label">Frequency</p>
-  <div id="app_inspector_inner">
-    <div id="app_inspector_bar_1" class="app-inspector-bar"></div>
-  </div>
-</div>
-<p id="x_label">Cores per job</p>
+<%= render partial: 'histogram', locals: {graph_data: @app_inspector_data['graph_data'], bin_size: @app_inspector_data['bin_size']} %>
 <input id="app_inspector_bins_slider" type="range" min="1" max="20" value="5">
 
 <script>
-  appInspectorData = <%= @app_inspector_data.to_json.html_safe %>
+/*
   innerBox = document.getElementById("app_inspector_inner");
   binsSlider = document.getElementById("app_inspector_bins_slider");
   appSelect = document.getElementById("app_inspector_selector");
@@ -66,4 +60,5 @@
 
   binsSlider.addEventListener("change", populateGraph);
   appSelect.addEventListener("change", populateGraph);
+*/
 </script>

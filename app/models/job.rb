@@ -70,6 +70,33 @@ class Job < ApplicationRecord
       apps
     end
 
+    def app_inspector_histogram_data
+      bin_count = 20
+      job_name = 'ondemand/sys/dashboard/sys/bc_osc_jupyter'
+      cpus_hash = {}
+      graph_data = Array.new(bin_count, 0)
+      Job.all.each do |job|
+        next unless job.name == job_name
+        next unless job.tres
+
+        cpus = job.tres.match(/cpu=(\d*)/).captures[0].to_i
+        if cpus_hash.key?(cpus)
+          cpus_hash[cpus] += 1
+        else
+          cpus_hash[cpus] = 1
+        end
+      end
+      max = cpus_hash.keys.max
+      bin_size = (max / bin_count).ceil
+      cpus_hash.each do |cpus, freq|
+        graph_data[((cpus - 1) / bin_size).floor] += freq
+      end
+      {
+        'bin_size'   => (max / bin_count).ceil,
+        'graph_data' => graph_data
+      }
+    end
+
     def all_names
       Job.all.map(&:name).uniq
     end

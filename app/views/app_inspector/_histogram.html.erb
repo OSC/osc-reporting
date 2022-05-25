@@ -1,0 +1,36 @@
+<style>
+#histogram_inner {
+  margin-left: 2em;
+  margin-right: 2em;
+  width: 100%;
+  border: 1px solid black;
+  height: 400px;
+  display: grid;
+  align-items: end;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  column-gap: 5px;
+}
+.histogram-bar {
+  width: 100%;
+  height: 200px;
+  background-color: blue;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+</style>
+<div id="app_inspector_semi_outer">
+  <p id="y_label">Frequency</p>
+  <div id="histogram_inner">
+    <% max_freq = graph_data.max %>
+    <% for i in 0..(graph_data.length-1) do %>
+      <div id="app_inspector_bar_1" class="histogram-bar" style="height: calc(<%= (graph_data[i]*100/max_freq) %>% - 1.5em)">
+        <p class="app-inspector-bar-y"><%= graph_data[i] %></p>
+        <p class="app-inspector-bar-x"><%= i*bin_size+1 %>-<%= (i+1)*bin_size %></p>
+      </div>
+    <% end %>
+  </div>
+</div>
+<p id="x_label">Cores per job</p>
