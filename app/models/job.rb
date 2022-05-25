@@ -53,46 +53,20 @@ class Job < ApplicationRecord
       (number * 100).to_i
     end
 
-    def app_inspector_data
-      apps = {}
+    def app_inspector_histogram_data(bin_count = 5, job_name = 'ondemand/sys/dashboard/sys/bc_osc_jupyter')
+      cpus_hash = Hash.new(0)
       Job.all.each do |job|
-        next unless job.tres
+        next unless job.name == job_name && job.tres
 
-        cpus = job.tres.match(/cpu=(\d*)/).captures[0].to_i
-        if !apps.key?(job.name)
-          apps[job.name] = { cpus => 1 }
-        elsif !apps[job.name].key?(cpus)
-          apps[job.name][cpus] = 1
-        else
-          apps[job.name][cpus] += 1
-        end
+        cpus_hash[job.tres.match(/cpu=(\d*)/).captures[0].to_i] += 1
       end
-      apps
-    end
-
-    def app_inspector_histogram_data
-      bin_count = 20
-      job_name = 'ondemand/sys/dashboard/sys/bc_osc_jupyter'
-      cpus_hash = {}
+      bin_size = (cpus_hash.keys.max / bin_count).ceil
       graph_data = Array.new(bin_count, 0)
-      Job.all.each do |job|
-        next unless job.name == job_name
-        next unless job.tres
-
-        cpus = job.tres.match(/cpu=(\d*)/).captures[0].to_i
-        if cpus_hash.key?(cpus)
-          cpus_hash[cpus] += 1
-        else
-          cpus_hash[cpus] = 1
-        end
-      end
-      max = cpus_hash.keys.max
-      bin_size = (max / bin_count).ceil
       cpus_hash.each do |cpus, freq|
         graph_data[((cpus - 1) / bin_size).floor] += freq
       end
       {
-        'bin_size'   => (max / bin_count).ceil,
+        'bin_size'   => bin_size,
         'graph_data' => graph_data
       }
     end
