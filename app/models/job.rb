@@ -53,7 +53,7 @@ class Job < ApplicationRecord
       (number * 100).to_i
     end
 
-    def app_inspector_histogram_data(bin_count = 5, job_name = 'ondemand/sys/dashboard/sys/bc_osc_jupyter')
+    def app_cpus(bin_count = 5, job_name = 'ondemand/sys/dashboard/sys/bc_osc_jupyter')
       cpus_hash = Hash.new(0)
       Job.all.each do |job|
         next unless job.name == job_name && job.tres

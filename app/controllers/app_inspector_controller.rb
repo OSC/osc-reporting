@@ -1,6 +1,6 @@
 class AppInspectorController < ApplicationController
   def index
     @app_names = Job.all_names
-    @app_inspector_data = Job.app_inspector_histogram_data
+    @app_cpus = Job.app_cpus
   end
 end
