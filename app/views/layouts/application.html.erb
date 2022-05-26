@@ -14,19 +14,27 @@
   <body>
   <header>
 
-    <nav class="navbar navbar-blue navbar-static-top" id="main-nav">
+    <nav class="navbar navbar-expand-lg navbar-blue navbar-static-top" id="main-nav">
       <div class="container-fluid">
         <div class="navbar-header">
           <%# #FIXME: ood_appkit can supply these links but doesn't have a rails 7 compatible version yet! %>
-          <%= link_to 'OSC OnDemand', 'ondemand.osc.edu/pun/dev/dashboard', class: "navbar-brand" %>  
-        </div>     
-
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav mr-auto">
-            <li class="nav-item"><%= link_to "Jobs", jobs_path %></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item"><a href="https://github.com/OSC/frame-renderer/blob/master/README.md">Help</a><li>
+          <%= link_to 'OSC OnDemand', 'ondemand.osc.edu/pun/dev/dashboard', class: "navbar-brand" %>
+        </div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav navbar-right">
+            <li class="nav-item">
+              <%= link_to "Jobs", jobs_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "App Inspector", app_inspector_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <a href="https://github.com/OSC/frame-renderer/blob/master/README.md" class="nav-link">Help</a>
+            </li>
           </ul>
         </div>
       </div>

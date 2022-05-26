@@ -52,6 +52,33 @@ class Job < ApplicationRecord
       # Rails.logger.info("formatting #{number} to #{(number * 100).to_i}")
       (number * 100).to_i
     end
+
+    def app_cpus(bin_count = 5, job_name = 'ondemand/sys/dashboard/sys/bc_osc_jupyter')
+      cpus_hash = Hash.new(0)
+      Job.all.each do |job|
+        next unless job.name == job_name && job.tres
+
+        cpus_hash[job.tres.match(/cpu=(\d*)/).captures[0].to_i] += 1
+      end
+      max_cpus = cpus_hash.keys.max
+      bin_size = (max_cpus / bin_count).ceil
+      graph_data = Array.new(bin_count, 0)
+      cpus_hash.each do |cpus, freq|
+        if cpus == max_cpus
+          graph_data[-1] += freq
+        else
+          graph_data[((cpus - 1) / bin_size).floor] += freq
+        end
+      end
+      {
+        'bin_size'   => bin_size,
+        'graph_data' => graph_data
+      }
+    end
+
+    def all_names
+      Job.all.map(&:name).uniq
+    end
   end
 
   def simple_name
