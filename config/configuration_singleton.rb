@@ -97,6 +97,6 @@ class ConfigurationSingleton
 
   # Location of clusters configuration folder
   def clusters_config_dir
-    ENV['CLUSTERS_CONFIG_DIR'] || '/etc/ood/config/clusters.d/'
+    ENV['OOD_CLUSTERS'] || '/etc/ood/config/clusters.d/'
   end
 end
