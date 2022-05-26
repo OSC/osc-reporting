@@ -6,5 +6,5 @@ Rails.application.routes.draw do
 
   root "jobs#index"
 
-  get "appInspector", to: "app_inspector#index"
+  get "app_inspector", to: "app_inspector#index"
 end
