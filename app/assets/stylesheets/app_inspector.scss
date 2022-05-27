@@ -2,7 +2,7 @@ p {
   margin: 0;
 }
 
-#histogram_semi_outer {
+#app_inspector_histogram {
   margin-top: 10px;
   display: flex;
 }
@@ -10,7 +10,7 @@ p {
 #y_label {
   height: 18pt;
   position: absolute;
-  margin-left: -50px;
+  margin-left: -80px;
   margin-top: 130px;
   transform: rotate(-90deg);
   transform-origin: 100% 100%
