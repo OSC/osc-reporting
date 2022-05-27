@@ -53,10 +53,10 @@ class Job < ApplicationRecord
       (number * 100).to_i
     end
 
-    def app_cpus(bin_count = 5, job_name = 'ondemand/sys/dashboard/sys/bc_osc_jupyter')
+    def app_cpus(bin_count = 5, job_name = 'ondemand/sys/dashboard/sys/bc_osc_jupyter', cluster = '_all')
       cpus_hash = Hash.new(0)
       Job.all.each do |job|
-        next unless job.name == job_name && job.tres
+        next unless job.name == job_name && job.tres && (cluster == '_all' || job.cluster == cluster)
 
         cpus_hash[job.tres.match(/cpu=(\d*)/).captures[0].to_i] += 1
       end
@@ -76,8 +76,12 @@ class Job < ApplicationRecord
       }
     end
 
-    def all_names
+    def all_app_names
       Job.all.map(&:name).uniq
+    end
+
+    def all_cluster_names
+      Job.all.map(&:cluster).uniq
     end
   end
 
