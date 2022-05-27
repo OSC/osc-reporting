@@ -64,11 +64,7 @@ class Job < ApplicationRecord
       bin_size = (max_cpus.to_f / bin_count).ceil
       graph_data = Array.new(bin_count, 0)
       cpus_hash.each do |cpus, freq|
-        if cpus == max_cpus
-          graph_data[-1] += freq
-        else
-          graph_data[((cpus - 1) / bin_size).floor] += freq
-        end
+        graph_data[((cpus - 1) / bin_size).floor] += freq
       end
       {
         'bin_size'   => bin_size,
