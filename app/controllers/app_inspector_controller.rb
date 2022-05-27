@@ -5,7 +5,7 @@ class AppInspectorController < ApplicationController
   end
 
   def replace_stream
-    app_cpus = Job.app_cpus(params[:bins_count].to_i, params[:app_inspector_selector])
+    app_cpus = Job.app_cpus(params[:bins_slider].to_i, params[:app_select])
     opts = {  partial: 'histogram',
               locals:  { graph_data: app_cpus['graph_data'], bin_size: app_cpus['bin_size'] } }
     respond_to do |format|

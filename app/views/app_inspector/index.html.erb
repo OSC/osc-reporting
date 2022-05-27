@@ -1,7 +1,7 @@
 <div data-controller="inspector">
   <h1>App Inspector</h1>
   <form id="app_inspector_form" action="<%= replace_app_inspector_path %>" method="post" data-inspector-target="form">
-    <select name="app_inspector_selector" id="app_inspector_selector" data-action="change->inspector#submitForm">
+    <select name="app_select" id="app_inspector_selector" data-action="change->inspector#submitForm">
       <% @app_names.each do |app_name| %>
         <option value="<%= app_name %>"><%= app_name %></option>
       <%end %>
@@ -11,6 +11,6 @@
       <%= render partial: 'histogram', locals: { graph_data: @app_cpus['graph_data'], bin_size: @app_cpus['bin_size'] } %>
     </turbo-stream>
     <p id="x_label">Cores per job</p>
-    <input type="range" name="bins_count" min="1" max="20" value="5" id="app_inspector_bins_slider" data-action="change->inspector#submitForm">
+    <input type="range" name="bins_slider" min="1" max="20" value="5" id="app_inspector_bins_slider" data-action="change->inspector#submitForm">
   </form>
 </div>
