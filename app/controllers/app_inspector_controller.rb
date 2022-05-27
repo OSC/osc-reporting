@@ -5,7 +5,7 @@ class AppInspectorController < ApplicationController
   end
 
   def replace_stream
-    app_cpus = Job.app_cpus(10, 'ondemand/sys/dashboard/sys/bc_osc_jupyter')
+    app_cpus = Job.app_cpus(params[:bins_count].to_i, 'ondemand/sys/dashboard/sys/bc_osc_jupyter')
     opts = {  partial: 'histogram',
               locals:  { graph_data: app_cpus['graph_data'], bin_size: app_cpus['bin_size'] } }
     respond_to do |format|
