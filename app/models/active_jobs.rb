@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ActiveJobs
-
   ALL_LOCK = Mutex.new
 
   class << self

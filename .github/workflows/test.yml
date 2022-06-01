@@ -1,0 +1,33 @@
+name: Unit Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Ruby using Bundler
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "2.7.3"
+          bundler-cache: true
+          bundler: "2.3.9"
+
+      - name: install gems
+        run: bin/bundle install
+
+      - name: precompile
+        run: bin/setup
+
+      - name: test
+        run: bin/rails test
