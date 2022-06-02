@@ -12,6 +12,8 @@ class ActiveJobs
           end
         )
       end
+    rescue OodCore::ConfigurationNotFound
+      OodCore::Clusters.new([])
     end
 
     def all
