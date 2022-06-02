@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ActiveJobs
-
   ALL_LOCK = Mutex.new
 
   class << self
@@ -13,6 +12,8 @@ class ActiveJobs
           end
         )
       end
+    rescue OodCore::ConfigurationNotFound
+      OodCore::Clusters.new([])
     end
 
     def all
