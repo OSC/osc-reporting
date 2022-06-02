@@ -1,12 +1,21 @@
 <div id="app_inspector_histogram">
   <p id="y_label"># of Jobs Using</p>
   <div id="histogram_inner">
-    <% max_freq = graph_data.max %>
-    <% for i in 0..(graph_data.length-1) do %>
-      <div id="histogram_bar_1" class="histogram-bar" style="height: <%= (graph_data[i]*100/max_freq) %>%">
-        <p class="histogram-bar-y"><%= graph_data[i] %></p>
-        <p class="histogram-bar-x"><%= i*bin_size+1 %>-<%= (i+1)*bin_size %></p>
-      </div>
+    <% if bin_size == 0 %>
+      <% for i in 0..(graph_data.length-1) do %>
+        <div id="histogram_bar_1" class="histogram-bar" style="height: 0%">
+          <p class="histogram-bar-y">0</p>
+          <p class="histogram-bar-x">0-0</p>
+        </div>
+      <% end %>
+    <% else %>
+      <% max_freq = graph_data.max %>
+      <% for i in 0..(graph_data.length-1) do %>
+        <div id="histogram_bar_1" class="histogram-bar" style="height: <%= (max_freq == 0) ? 0 : (graph_data[i]*100/max_freq) %>%">
+          <p class="histogram-bar-y"><%= graph_data[i] %></p>
+          <p class="histogram-bar-x"><%= i*bin_size+1 %>-<%= (i+1)*bin_size %></p>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>
