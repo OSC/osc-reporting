@@ -97,6 +97,10 @@ class ConfigurationSingleton
 
   # Location of clusters configuration folder
   def clusters_config_dir
-    ENV['OOD_CLUSTERS'] || '/etc/ood/config/clusters.d/'
+    if Rails.env == 'test'
+      './test/fixtures/config/clusters.d'
+    else
+      ENV.fetch('OOD_CLUSTERS', '/etc/ood/config/clusters.d/')
+    end
   end
 end
