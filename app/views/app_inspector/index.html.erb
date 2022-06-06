@@ -1,6 +1,6 @@
 <div data-controller="inspector">
   <h1>App Inspector</h1>
-  <form id="app_inspector_form" action="<%= replace_app_inspector_path %>" method="post" data-inspector-target="form">
+  <form id="app_inspector_form" action="<%= replace_app_inspector_path %>" method="post" data-inspector-target="form" data-action="submit->inspector#onFormSubmit">
     <select name="cluster_select" id="cluster_inspector_selector" data-action="change->inspector#submitForm">
       <option value="_all">All Clusters</option>
       <% @cluster_names.each do |cluster_name| %>
