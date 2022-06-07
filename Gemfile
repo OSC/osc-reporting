@@ -42,7 +42,7 @@ gem "bootsnap", require: false
 
 # OOD stuff
 # gem 'ood_appkit', '~> 2.1.0'
-gem 'ood_core', '~> 0.11'
+gem 'ood_core', '~> 0.20'
 
 # Use Sass to process CSS
 # gem "sassc-rails"
