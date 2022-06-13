@@ -11,22 +11,18 @@ export default class extends Controller {
         room: "main"
       },
       {
-        connected: this._connected.bind(this),
-        disconnected: this._disconnected.bind(this),
+        connected: function(event) {
+          console.log('inspectorChannel connected');
+        },
+        disconnected: function(event) {
+          console.log('inspectorChannel disconnected');
+        },
         received: this._received.bind(this),
         getHistogram: function(reqBody) {
           this.perform('get_histogram', {body: reqBody});
         }
       }
     );
-  }
-
-  _connected(event) {
-    console.log('inspectorChannel connected');
-  }
-
-  _disconnected(event) {
-    console.log('inspectorChannel disconnected');
   }
 
   _received(event) {

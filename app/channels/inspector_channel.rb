@@ -1,16 +1,4 @@
 class InspectorChannel < ApplicationCable::Channel
-  def subscribed
-    stream_from "inspector_#{params[:room]}"
-  end
-
-  def unsubscribed
-    # Any cleanup needed when channel is unsubscribed
-  end
-
-  def receive(data)
-    puts "INSPECTORCHANNEL: #{data}"
-  end
-
   def get_histogram(data)
     body = data['body']
     app_cpus = Job.app_cpus(body['bins'].to_i, body['app'], body['cluster'])
