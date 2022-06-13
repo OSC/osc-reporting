@@ -1,21 +1,20 @@
 <div data-controller="inspector">
   <h1>App Inspector</h1>
-  <form id="app_inspector_form" action="<%= replace_app_inspector_path %>" method="post" data-inspector-target="form" data-action="submit->inspector#onFormSubmit">
-    <select name="cluster_select" id="cluster_inspector_selector" data-action="change->inspector#submitForm">
+  <form id="app_inspector_form" action="<%= replace_app_inspector_path %>" method="post" data-inspector-target="form" data-action="submit->inspector#requestReload">
+    <select name="cluster_select" id="cluster_inspector_selector" data-action="change->inspector#submitForm" data-inspector-target="clusterSelect">
       <option value="_all">All Clusters</option>
       <% @cluster_names.each do |cluster_name| %>
         <option value="<%= cluster_name %>"><%= cluster_name %></option>
       <% end %>
     </select>
-    <select name="app_select" id="app_inspector_selector" data-action="change->inspector#submitForm">
+    <select name="app_select" id="app_inspector_selector" data-action="change->inspector#submitForm" data-inspector-target="appSelect">
       <% @app_names.each do |app_name| %>
         <option value="<%= app_name %>"><%= app_name %></option>
       <% end %>
     </select>
-    <turbo_stream action="replace" target="app_inspector_histogram">
-      <template></template>
+    <div data-inspector-target="histogramContainer">
       <%= render partial: 'histogram', locals: { graph_data: @app_cpus['graph_data'], bin_size: @app_cpus['bin_size'] } %>
-    </turbo-stream>
+    </div>
     <p id="x_label">Cores per job</p>
     <div class='d-flex align-items-center'>
       <p># of bins: </p>
