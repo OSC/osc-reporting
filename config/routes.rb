@@ -7,5 +7,4 @@ Rails.application.routes.draw do
   root "jobs#index"
 
   get "app_inspector", to: "app_inspector#index"
-  post 'replace_app_inspector', :to => 'app_inspector#replace_stream', :as => :replace_app_inspector
 end
