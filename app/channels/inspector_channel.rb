@@ -1,4 +1,4 @@
-class InspectorChannel < ApplicationCable::Channel
+class InspectorChannel < ActionCable::Channel::Base
   def get_histogram(data)
     body = data['body']
     app_cpus = Job.app_cpus(body['bins'].to_i, body['app'], body['cluster'])
