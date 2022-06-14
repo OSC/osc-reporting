@@ -60,11 +60,25 @@ class Job < ApplicationRecord
 
         cpus_hash[job.tres.match(/cpu=(\d*)/).captures[0].to_i] += 1
       end
-      max_cpus = cpus_hash.keys.max
-      bin_size = (max_cpus.to_f / bin_count).ceil
+      histogram_data_hash(cpus_hash, bin_count)
+    end
+
+    def app_gpus(bin_count = 5, job_name = 'ondemand/sys/dashboard/sys/bc_osc_jupyter', cluster = '_all')
+      gpus_hash = Hash.new(0)
+      Job.all.each do |job|
+        next unless job.name == job_name && job.tres && (cluster == '_all' || job.cluster == cluster)
+
+        gpus_hash[job.tres.match(/gpu[^,]*=(\d*)/).captures[0].to_i] += 1
+      end
+      histogram_data_hash(gpus_hash, bin_count)
+    end
+
+    def histogram_data_hash(property_hash, bin_count)
+      max_property = property_hash.keys.max
+      bin_size = (max_property.to_f / bin_count).ceil
       graph_data = Array.new(bin_count, 0)
-      cpus_hash.each do |cpus, freq|
-        graph_data[((cpus - 1) / bin_size).floor] += freq
+      property_hash.each do |property, freq|
+        graph_data[((property - 1) / bin_size).floor] += freq
       end
       {
         'bin_size'   => bin_size,
