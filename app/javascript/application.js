@@ -4,4 +4,3 @@ import "./controllers";
 
 
 import * as Turbo from "@hotwired/turbo";
-import "./channels"

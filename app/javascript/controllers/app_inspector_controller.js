@@ -1,11 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
-import consumer from "../channels/consumer";
+import { createConsumer } from "@rails/actioncable"
 
 export default class extends Controller {
   static targets = ["form", "binCountLabel", "binCountSlider", "clusterSelect", "appSelect", "histogramContainer"];
   
   connect() {
-    this.subscription = consumer.subscriptions.create(
+    this.subscription = createConsumer().subscriptions.create(
       {
         channel: "InspectorChannel",
         room: "main"
