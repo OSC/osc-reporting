@@ -55,11 +55,11 @@ class Job < ApplicationRecord
 
     def app_inspect(bin_count = 5, job_name = 'ondemand/sys/dashboard/sys/bc_osc_jupyter', cluster = '_all', property = 'CPUs')
       property_hash = Hash.new(0)
-      match_str = property == 'GPUs' ? /gpu[^,]*=(\d*)/ : /cpu=(\d*)/
+      match_str = property == 'GPUs' ? /gpu:[^,]*(\d+)/ : /cpu=(\d*)/
       Job.all.each do |job|
         next unless job.name == job_name && job.tres && (cluster == '_all' || job.cluster == cluster)
 
-        property_hash[job.tres.match(match_str) ? job.tres.match(match_str).captures[0].to_i : 0] += 1
+        property_hash[job.tres.scan(match_str).flatten.map(&:to_i).sum] += 1
       end
       max_property = property_hash.keys.max
       bin_size = (max_property.to_f / bin_count).ceil
