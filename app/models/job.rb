@@ -61,12 +61,11 @@ class Job < ApplicationRecord
 
         property_hash[job.tres.scan(match_str).flatten.map(&:to_i).sum] += 1
       end
-      max_property = property_hash.keys.max
+      max_property = property_hash.keys.max + 1
       bin_size = (max_property.to_f / bin_count).ceil
       graph_data = Array.new(bin_count, 0)
-      property_hash.delete(0)
       property_hash.each do |val, freq|
-        graph_data[((val - 1) / bin_size).floor] += freq
+        graph_data[(val / bin_size).floor] += freq
       end
       {
         'bin_size'   => bin_size,

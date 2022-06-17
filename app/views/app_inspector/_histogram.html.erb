@@ -13,7 +13,7 @@
       <% for i in 0..(graph_data.length-1) do %>
         <div id="histogram_bar_1" class="histogram-bar" style="height: <%= (max_freq == 0) ? 0 : (graph_data[i]*100/max_freq) %>%">
           <p class="histogram-bar-y"><%= graph_data[i] %></p>
-          <p class="histogram-bar-x"><%= i*bin_size+1 %>-<%= (i+1)*bin_size %></p>
+          <p class="histogram-bar-x"><%= i*bin_size %>-<%= (i+1)*bin_size-1 %></p>
         </div>
       <% end %>
     <% end %>
