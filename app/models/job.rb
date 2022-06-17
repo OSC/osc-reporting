@@ -53,9 +53,9 @@ class Job < ApplicationRecord
       (number * 100).to_i
     end
 
-    def app_inspect(bin_count = 5, job_name = 'ondemand/sys/dashboard/sys/bc_osc_jupyter', cluster = '_all', property = 'cpus')
+    def app_inspect(bin_count = 5, job_name = 'ondemand/sys/dashboard/sys/bc_osc_jupyter', cluster = '_all', property = 'CPUs')
       property_hash = Hash.new(0)
-      match_str = property == 'gpus' ? /gpu[^,]*=(\d*)/ : /cpu=(\d*)/
+      match_str = property == 'GPUs' ? /gpu[^,]*=(\d*)/ : /cpu=(\d*)/
       Job.all.each do |job|
         next unless job.name == job_name && job.tres && (cluster == '_all' || job.cluster == cluster)
 
