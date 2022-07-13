@@ -53,18 +53,19 @@ class Job < ApplicationRecord
       (number * 100).to_i
     end
 
-    def app_cpus(bin_count = 5, job_name = 'ondemand/sys/dashboard/sys/bc_osc_jupyter', cluster = '_all')
-      cpus_hash = Hash.new(0)
+    def app_inspect(bin_count = 5, job_name = 'ondemand/sys/dashboard/sys/bc_osc_jupyter', cluster = '_all', property = 'CPUs')
+      property_hash = Hash.new(0)
+      match_str = property == 'GPUs' ? /gpu:[^,]*(\d+)/ : /cpu=(\d*)/
       Job.all.each do |job|
         next unless job.name == job_name && job.tres && (cluster == '_all' || job.cluster == cluster)
 
-        cpus_hash[job.tres.match(/cpu=(\d*)/).captures[0].to_i] += 1
+        property_hash[job.tres.scan(match_str).flatten.map(&:to_i).sum] += 1
       end
-      max_cpus = cpus_hash.keys.max
-      bin_size = (max_cpus.to_f / bin_count).ceil
+      max_property = property_hash.keys.max + 1
+      bin_size = (max_property.to_f / bin_count).ceil
       graph_data = Array.new(bin_count, 0)
-      cpus_hash.each do |cpus, freq|
-        graph_data[((cpus - 1) / bin_size).floor] += freq
+      property_hash.each do |val, freq|
+        graph_data[(val / bin_size).floor] += freq
       end
       {
         'bin_size'   => bin_size,
