@@ -14,7 +14,13 @@
         <% next unless not hide_empty_bins or graph_data[i] > 0 %>
         <div id="histogram_bar_1" class="histogram-bar bg-primary" style="height: <%= (max_freq == 0) ? 0 : (graph_data[i]*100/max_freq) %>%">
           <p class="histogram-bar-y"><%= graph_data[i] %></p>
-          <p class="histogram-bar-x"><%= i*bin_size %>-<%= (i+1)*bin_size-1 %></p>
+          <p class="histogram-bar-x">
+            <% if bin_size == 1 %>
+              <%= i*bin_size %>
+            <% else %>
+              <%= i*bin_size %>-<%= (i+1)*bin_size-1 %>
+            <% end %>
+          </p>
         </div>
       <% end %>
     <% end %>

@@ -62,7 +62,13 @@ class Job < ApplicationRecord
         property_hash[job.tres.scan(match_str).flatten.map(&:to_i).sum] += 1
       end
       max_property = property_hash.keys.max + 1
-      bin_size = (max_property.to_f / bin_count).ceil
+      # When slider is all the way to the right, use a bin_size of 1 and set bin_count to max
+      if bin_count == 21
+        bin_size = 1
+        bin_count = property_hash.keys.max + 1
+      else
+        bin_size = (max_property.to_f / bin_count).ceil
+      end
       graph_data = Array.new(bin_count, 0)
       property_hash.each do |val, freq|
         graph_data[(val / bin_size).floor] += freq
