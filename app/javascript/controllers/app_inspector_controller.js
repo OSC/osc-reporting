@@ -9,7 +9,7 @@ export default class extends Controller {
 
   updateBinCount(event) {
     // If bin slider is set to 21, show "1 per" as number of bins, otherwise show the set value
-    this.binCountLabelTarget.textContent = this.binCountSliderTarget.value == 21 ? "1 per" : this.binCountSliderTarget.value;
+    this.binCountLabelTarget.textContent = this.binCountSliderTarget.value == 21 ? "max" : this.binCountSliderTarget.value;
     this.formTarget.requestSubmit();
   }
 
