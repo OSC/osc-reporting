@@ -8,12 +8,10 @@ p {
 }
 
 #y_label {
-  height: 18pt;
   position: absolute;
-  margin-left: -85px;
-  margin-top: 130px;
+  margin-top: 17rem;
   transform: rotate(-90deg);
-  transform-origin: 100% 100%
+  transform-origin: top left;
 }
 
 #x_label {
