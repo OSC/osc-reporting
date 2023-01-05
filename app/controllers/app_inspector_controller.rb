@@ -9,9 +9,8 @@ class AppInspectorController < ApplicationController
     data = Job.app_inspect(params[:bins_slider].to_i, params[:app_select], params[:cluster_select], params[:property_select])
     opts = {  partial: 'histogram',
               locals:  {
-                graph_data:      data['graph_data'],
-                bin_size:        data['bin_size'],
-                hide_empty_bins: params[:hide_empty_bins]
+                graph_data: data['graph_data'],
+                bin_size:   data['bin_size']
               } }
     respond_to do |format|
       format.turbo_stream { render turbo_stream: turbo_stream.replace('app_inspector_histogram', **opts) }
