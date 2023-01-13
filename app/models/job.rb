@@ -55,11 +55,22 @@ class Job < ApplicationRecord
 
     def app_inspect(bin_count = 5, job_name = 'ondemand/sys/dashboard/sys/bc_osc_jupyter', cluster = '_all', property = 'CPUs')
       property_hash = Hash.new(0)
-      match_str = property == 'GPUs' ? /gpu:[^,]*(\d+)/ : /cpu=(\d*)/
-      Job.all.each do |job|
-        next unless job.name == job_name && job.tres && (cluster == '_all' || job.cluster == cluster)
+      if property == 'Hours'
+        Job.all.each do |job|
+          next unless job.name == job_name && (cluster == '_all' || job.cluster == cluster)
 
-        property_hash[job.tres.scan(match_str).flatten.map(&:to_i).sum] += 1
+          s = job.elapsed.split('-')
+          # hours = hours + (days * 24 if days are included)
+          hours = s[-1].split(':')[0].to_i + (s.length == 2 ? 24 * s[0].to_i : 0)
+          property_hash[hours] += 1
+        end
+      else
+        match_str = property == 'GPUs' ? /gpu:[^,]*(\d+)/ : /cpu=(\d*)/
+        Job.all.each do |job|
+          next unless job.name == job_name && job.tres && (cluster == '_all' || job.cluster == cluster)
+
+          property_hash[job.tres.scan(match_str).flatten.map(&:to_i).sum] += 1
+        end
       end
       max_property = property_hash.keys.max + 1
       # When slider is all the way to the right, use a bin_size of 1 and set bin_count to max
